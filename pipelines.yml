@@ -1,0 +1,75 @@
+resources:
+  - name: propertyCanvas
+    type: PropertyBag
+    configuration:
+      key1: value1
+      key2: value2
+      pipelines: "user_in"
+  - name: propertyCanvas2
+    type: PropertyBag
+    configuration:
+      key1: value1
+      key2: value2
+pipelines:
+  - name: single_test
+    configuration:
+      environmentVariables:
+        readOnly:
+          pipevar1: 1
+          pipevar2: 2
+    steps:
+      - name: trigger_1
+        type: Bash
+        configuration:
+          affinityGroup: trigger
+          environmentVariables:
+            env1: 1
+            env2:
+              default: 2
+              description: someDescription
+          priority: 0
+        execution:
+          onExecute:
+            - printenv
+            - echo "done"
+      - name: trigger_2
+        type: Bash
+        configuration:
+          inputSteps: 
+            - name: trigger_1
+          affinityGroup: trigger
+          environmentVariables:
+            env1: 1
+            env2:
+              default: 2
+              description: someDescription
+          priority: 0
+        execution:
+          onExecute:
+            - printenv
+            - echo "done"
+  - name: trigger_test
+    configuration:
+      environmentVariables:
+        readOnly:
+          pipevar1: 1
+          pipevar2: 2
+    steps:
+      - name: trigger_2
+        type: Bash
+        configuration:
+          affinityGroup: g1
+          environmentVariables:
+            step2env1: 1
+            step2env2: 2
+          outputResources:
+            - name: propertyCanvas
+        execution:
+          onExecute:
+            - echo runs > cache.file
+            - add_cache_files cache.file runs.file
+            - echo "state=pipeline2" > cache.txt
+            - add_run_files cache.txt run_state_file
+            - add_pipeline_files cache.txt pipe_state_file
+            - write_output propertyCanvas "pipelines=$run_id"
+            - save_tests cache.txt
