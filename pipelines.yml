@@ -10,6 +10,21 @@ resources:
     configuration:
       key1: value1
       key2: value2
+#   - name: buildInfoTrigger
+#     type: BuildInfo
+#     configuration:
+#       sourceArtifactory: art
+#       buildName: backend_build
+#       buildNumber: 1
+#   - name: gitResCanvas
+#     type: GitRepo
+#     configuration:
+#       gitProvider: gitResource
+#       path: ChaitanyaVootla/ymlTest
+#   - name: incomw
+#     type: IncomingWebhook
+#     configuration:
+#       webhookName: incomw
 pipelines:
   - name: single_test
     configuration:
@@ -39,31 +54,31 @@ pipelines:
           pipevar1: 1
           pipevar2: 2
     steps:
-      - name: trigger_1
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-          inputResources:
-            - name: buildInfoTrigger
-            - name: gitResCanvas
-            - name: propertyCanvas2
-            - name: incomw
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-      - name: jenkins
-        type: Jenkins
-        configuration:
-          jenkinsJobName: somename
-          integrations:
-            - name: jenkins
+#       - name: trigger_1
+#         type: Bash
+#         configuration:
+#           affinityGroup: trigger
+#           environmentVariables:
+#             env1: 1
+#             env2:
+#               default: 2
+#               description: someDescription
+#           priority: 0
+#           inputResources:
+#             - name: buildInfoTrigger
+#             - name: gitResCanvas
+#             - name: propertyCanvas2
+#             - name: incomw
+#         execution:
+#           onExecute:
+#             - printenv
+#             - echo "done"
+#       - name: jenkins
+#         type: Jenkins
+#         configuration:
+#           jenkinsJobName: somename
+#           integrations:
+#             - name: jenkins
       - name: trigger_2
         type: Bash
         configuration:
