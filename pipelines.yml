@@ -32,6 +32,20 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+      - name: trigger_2
+        type: Bash
+        configuration:
+          affinityGroup: trigger
+          environmentVariables:
+            env1: 1
+            env2:
+              default: 2
+              description: someDescription
+          priority: 0
+        execution:
+          onExecute:
+            - printenv
+            - echo "done"
   - name: trigger_test
     configuration:
       environmentVariables:
@@ -39,10 +53,12 @@ pipelines:
           pipevar1: 1
           pipevar2: 2
     steps:
-      - name: trigger_2
+      - name: trigger_3
         type: Bash
         configuration:
           affinityGroup: g1
+          inputSteps:
+            - name: trigger_1
           environmentVariables:
             step2env1: 1
             step2env2: 2
