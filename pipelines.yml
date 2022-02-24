@@ -80,6 +80,54 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+      - name: trigger_5
+        type: Bash
+        configuration:
+          affinityGroup: trigger
+          inputSteps:
+            - name: trigger_4
+          environmentVariables:
+            env1: 1
+            env2:
+              default: 2
+              description: someDescription
+          priority: 0
+        execution:
+          onExecute:
+            - printenv
+            - echo "done"
+      - name: trigger_6
+        type: Bash
+        configuration:
+          affinityGroup: trigger
+          inputSteps:
+            - name: trigger_5
+          environmentVariables:
+            env1: 1
+            env2:
+              default: 2
+              description: someDescription
+          priority: 0
+        execution:
+          onExecute:
+            - printenv
+            - echo "done"
+      - name: trigger_7
+        type: Bash
+        configuration:
+          affinityGroup: trigger
+          inputSteps:
+            - name: trigger_6
+          environmentVariables:
+            env1: 1
+            env2:
+              default: 2
+              description: someDescription
+          priority: 0
+        execution:
+          onExecute:
+            - printenv
+            - echo "done"
   - name: trigger_test
     configuration:
       environmentVariables:
