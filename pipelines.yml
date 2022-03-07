@@ -32,6 +32,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 10
       - name: trigger_2
         type: Bash
         configuration:
@@ -48,6 +49,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 20
       - name: trigger_3
         type: Bash
         configuration:
@@ -64,6 +66,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 30
       - name: trigger_4
         type: Bash
         configuration:
@@ -80,6 +83,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 40
       - name: trigger_5
         type: Bash
         configuration:
@@ -96,6 +100,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 50
       - name: trigger_6
         type: Bash
         configuration:
@@ -112,6 +117,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 60
       - name: trigger_7
         type: Bash
         configuration:
@@ -128,6 +134,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - sleep 70
   - name: trigger_test
     configuration:
       environmentVariables:
