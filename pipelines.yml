@@ -4,7 +4,7 @@ resources:
     configuration:
       key1: value1
       key2: value2
-      pipelines: "user_in"
+      pipelines: 'user_in'
   - name: propertyCanvas2
     type: PropertyBag
     configuration:
@@ -18,7 +18,7 @@ pipelines:
           pipevar1: 1
           pipevar2: 2
     steps:
-      - name: trigger_1
+      - name: trigger_1_with_a_long_long_name_try_this
         type: Bash
         configuration:
           affinityGroup: trigger
@@ -33,12 +33,12 @@ pipelines:
             - printenv
             - echo "done"
             - sleep 10
-      - name: trigger_2
+      - name: trigger_2_and_with_a_long_long_name_try_this
         type: Bash
         configuration:
           affinityGroup: trigger
           inputSteps:
-            - name: trigger_1
+            - name: trigger_1_with_a_long_long_name_try_this
           environmentVariables:
             env1: 1
             env2:
@@ -55,7 +55,7 @@ pipelines:
         configuration:
           affinityGroup: trigger
           inputSteps:
-            - name: trigger_2
+            - name: trigger_2_and_with_a_long_long_name_try_this
           environmentVariables:
             env1: 1
             env2:
