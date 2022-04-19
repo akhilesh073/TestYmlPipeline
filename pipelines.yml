@@ -142,7 +142,7 @@ pipelines:
           pipevar1: 1
           pipevar2: 2
     steps:
-      - name: trigger_2
+      - name: trigger_2_and_with_a_long_long_name_try_this
         type: Bash
         configuration:
           affinityGroup: g1
