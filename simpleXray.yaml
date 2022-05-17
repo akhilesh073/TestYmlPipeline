@@ -67,8 +67,6 @@ pipelines:
         configuration:
           nodePool: TestPoolAkhil
           #waitUntilFinish: false
-          outputResources:
-            - name: mvnBuild_infoScaned
 
       - name: mvn_build_promote
         type: PromoteBuild
@@ -91,5 +89,3 @@ pipelines:
           releaseBundleName: mvn_release_bundle_varsha
           releaseBundleVersion: v0.0.2
           sign: false
-          outputResources:
-            - name: unsigned_mvn_release_bundle
