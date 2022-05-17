@@ -77,15 +77,3 @@ pipelines:
           status: 'promote success' # for mvn_build_promoted" # optional
           comment: 'maven build should be promoted from varsha-local. maven build should be promoted from varsha-local. maven build should be promoted from varsha-local. maven build should be promoted from varsha-local' # for mvn_build_promoted" # optional
           copy: true #optional - no need to have delete access it wont delete from base repo just moves copy to target repo
-          outputResources:
-            - name: mvnBuild_infopromoted #required
-
-      - name: mvn_release_bundle_unsigned
-        type: CreateReleaseBundle
-        configuration:
-          nodePool: TestPoolAkhil
-          dryRun: false
-          description: 'This is to test mvn build'
-          releaseBundleName: mvn_release_bundle_varsha
-          releaseBundleVersion: v0.0.2
-          sign: false
