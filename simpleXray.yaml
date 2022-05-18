@@ -47,33 +47,6 @@ pipelines:
 
   - name: varshamvn
     steps:
-      # - name: input_script_bash
-        type: Bash
-        configuration:
-          nodePool: TestPoolAkhil
-          runtime:
-            type: image
-            image:
-              # auto:
-              #   language: java
-              #   versions:
-              #     - openjdk8
-              custom:
-                name: pipelines-docker.jfrog.io/jfrog/pipelines-u16java
-                tag: 0.9.1
-        execution:
-          onExecute:
-            - printenv
-            - echo $test
-            - echo $ribbit
-            - pushd $res_script_repo1_resourcePath
-            - source example.env
-            - echo ~
-            - ./echo.sh
-            - echo $test
-            - echo $ribbit
-            - popd
-
       - name: mvn_build_scan
         type: XrayScan
         configuration:
