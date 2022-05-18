@@ -11,7 +11,7 @@ resources:
       key1: value1
       key2: value2
 pipelines:
-  - name: single_test
+  - name: single_test_sorting
     configuration:
       environmentVariables:
         readOnly:
@@ -135,7 +135,7 @@ pipelines:
             - printenv
             - echo "done"
             - sleep 20
-  - name: trigger_test
+  - name: trigger_test_sorting
     configuration:
       environmentVariables:
         readOnly:
