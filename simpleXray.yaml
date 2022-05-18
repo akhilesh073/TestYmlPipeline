@@ -47,7 +47,7 @@ pipelines:
 
   - name: varshamvn
     steps:
-      - name: input_script_bash
+      # - name: input_script_bash
         type: Bash
         configuration:
           nodePool: TestPoolAkhil
