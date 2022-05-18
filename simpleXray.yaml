@@ -1,4 +1,16 @@
 resources:
+  - name: mvnBuild_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: varsha_artifactory
+      buildName: mvn_sample_build_varsha
+      buildNumber: 9
+  - name: mvnBuild_infoScaned
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: varsha_artifactory
+      buildName: mvn_scan_varsha
+      buildNumber: 2
   - name: propertyCanvasAkh
     type: PropertyBag
     configuration:
@@ -67,13 +79,7 @@ pipelines:
         configuration:
           nodePool: TestPoolAkhil
           #waitUntilFinish: false
-
-      - name: mvn_build_promote
-        type: PromoteBuild
-        configuration:
-          nodePool: TestPoolAkhil
-          targetRepository: test-maven-local # required
-          includeDependencies: true # default false
-          status: 'promote success' # for mvn_build_promoted" # optional
-          comment: 'maven build should be promoted from varsha-local. maven build should be promoted from varsha-local. maven build should be promoted from varsha-local. maven build should be promoted from varsha-local' # for mvn_build_promoted" # optional
-          copy: true #optional - no need to have delete access it wont delete from base repo just moves copy to target repo
+          inputResources:
+            - name: mvnBuild_info
+          outputResources:
+            - name: mvnBuild_infoScaned
