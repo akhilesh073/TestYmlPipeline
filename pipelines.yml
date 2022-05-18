@@ -100,7 +100,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
-            - sleep 30
+            - sleep 25
       - name: trigger_6
         type: Bash
         configuration:
