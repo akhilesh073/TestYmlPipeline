@@ -49,6 +49,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "done"
+            - asdfdsa
             - sleep 15
       - name: trigger_3
         type: Bash
