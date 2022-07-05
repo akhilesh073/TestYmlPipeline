@@ -1,137 +1,38 @@
-resources:
-  - name: propertyC
-    type: PropertyBag
+name: cypress
+configuration:
+  integrations:
+    - name: entArt
+  nodePool: pipelines_u20
+  inputResources:
+    - name: cypressTest
+steps:
+  - name: cypress_e2e
+    type: Bash
     configuration:
-      key1: value1
-      key2: value2
-      pipelines: 'user_in'
-  - name: propertyC2
-    type: PropertyBag
-    configuration:
-      key1: value1
-      key2: value2
-pipelines:
-  - name: single_test_sorting
-    configuration:
-      environmentVariables:
-        readOnly:
-          pipevar1: 1
-          pipevar2: 2
-    steps:
-      - name: trigger_1_with_a_long_long_name_try_this
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 10
-      - name: trigger_2_and_with_a_long_long_name_try_this
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_1_with_a_long_long_name_try_this
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 15
-      - name: trigger_3
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_2_and_with_a_long_long_name_try_this
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
-      - name: trigger_4
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_3
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 25
-      - name: trigger_5
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_4
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 25
-      - name: trigger_6
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_5
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
-      - name: trigger_7
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_6
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
+      runtime:
+        type: image
+        image:
+          custom:
+            name: cypress/browsers
+            tag: node14.16.0-chrome89-ff86
+      inputResources:
+        - name: cypress_gitRepo
+    execution:
+      onStart:
+        - node -v
+        - pushd $res_cypress_gitRepo_resourcePath
+        - ls -la
+        - cd services/frontend/e2e
+        - ls -la
+        - mkdir -p /tmp/npm_cache
+        - restore_pipeline_files npm_cache /tmp/npm_cache/
+        - jfrog rt npmc --server-id-resolve entArt --repo-resolve npm-virtual
+        - >-
+          jfrog rt npmci --cache /tmp/npm_cache --prefer-offline
+          --only=production
+        - add_pipeline_files /tmp/npm_cache npm_cache
+        - export CYPRESS_BASE_URL="$res_cypressTest_URL"
+        - ls -la
+        - cat cypress.json
+        - 'npm run cypress:run'
+        - popd
