@@ -101,7 +101,7 @@ pipelines:
             - printenv
             - echo "done"
             - sleep 25
-      - name: trigger_a
+      - name: trigger_6
         type: Bash
         configuration:
           affinityGroup: trigger
@@ -123,7 +123,7 @@ pipelines:
         configuration:
           affinityGroup: trigger
           inputSteps:
-            - name: trigger_b
+            - name: trigger_6
           environmentVariables:
             env1: 1
             env2:
