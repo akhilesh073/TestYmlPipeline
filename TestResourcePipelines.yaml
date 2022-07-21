@@ -16,57 +16,6 @@ resources:
       branches:
         include: main
 
-  - name: gitRepo_gitlabhttps
-    type: GitRepo
-    configuration:
-      gitProvider: s_gitLab
-      path: jfbeta/test
-      cloneProtocol: https
-      branches:
-        include: main
-
-  - name: gitRepo_bitbuckethttps
-    type: GitRepo
-    configuration:
-      gitProvider: vijay_bitbucket
-      path: jfbeta/webhook
-      cloneProtocol: https
-
-  #   - name: gitRepo_bitbucketserverhttps
-  #     type: GitRepo
-  #     configuration:
-  #       gitProvider: vijay_bitbucketserver
-  #       path: ~vijaykp/sample-tests
-  #       cloneProtocol: https
-
-  - name: gitRepo_github
-    type: GitRepo
-    configuration:
-      gitProvider: varsha_github
-      path: Varsha-Arun/simple
-      branches:
-        include: main
-
-  - name: gitRepo_gitlab
-    type: GitRepo
-    configuration:
-      gitProvider: s_gitLab
-      path: jfbeta/test
-      branches:
-        include: main
-
-  - name: gitRepo_bitbucket
-    type: GitRepo
-    configuration:
-      gitProvider: vijay_bitbucket
-      path: jfbeta/webhook
-
-  #   - name: gitRepo_bitbucketserver
-  #     type: GitRepo
-  #     configuration:
-  #       gitProvider: vijay_bitbucketserver
-  #       path: ~vijaykp/sample-tests
-
   - name: versionbag
     type: PropertyBag
     configuration:
@@ -92,13 +41,6 @@ pipelines:
           inputResources:
             - name: same_gitRepo1
             - name: gitRepo_githubhttps
-            - name: gitRepo_gitlabhttps
-            - name: gitRepo_bitbuckethttps
-            #             - name: gitRepo_bitbucketserverhttps
-            - name: gitRepo_github
-            - name: gitRepo_gitlab
-            - name: gitRepo_bitbucket
-          #             - name: gitRepo_bitbucketserver
           outputResources:
             - name: versionbag
             - name: branchbag
