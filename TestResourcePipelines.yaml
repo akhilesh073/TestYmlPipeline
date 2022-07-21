@@ -56,15 +56,26 @@ pipelines:
       - name: simpleBash2
         type: Bash
         configuration:
+          inputSteps:
+            - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
             - name: gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
-      #             - sleep 1m
-
       - name: simpleBash3
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: simpleBash4
         type: Bash
         configuration:
           inputSteps:
