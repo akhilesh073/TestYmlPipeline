@@ -69,6 +69,7 @@ pipelines:
         configuration:
           inputSteps:
             - name: simpleBash1
+            - name: simpleBash2
           inputResources:
             - name: versionbag
             - name: gitRepo_githubhttps
