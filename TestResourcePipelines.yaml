@@ -2,15 +2,15 @@ resources:
   - name: same_gitRepo1
     type: GitRepo
     configuration:
-      gitProvider: varsha_github
-      path: Varsha-Arun/pipelines
+      gitProvider: testInt
+      path: akhilesh073/TestYmlPipeline
       branches:
-        include: simple
+        include: master
 
   - name: gitRepo_githubhttps
     type: GitRepo
     configuration:
-      gitProvider: varsha_github
+      gitProvider: testInt
       path: Varsha-Arun/simple
       cloneProtocol: https
       branches:
