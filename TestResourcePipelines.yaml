@@ -11,7 +11,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: testInt
-      path: Varsha-Arun/simple
+      path: akhilesh073/xray-pipelines-repo
       cloneProtocol: https
       branches:
         include: main
