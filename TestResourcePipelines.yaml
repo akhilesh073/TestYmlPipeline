@@ -49,7 +49,7 @@ pipelines:
           onExecute:
             - printenv
             #             - sleep 3m
-            - echo "aaa bbb"
+            - echo "aaa bbb ccc"
             - write_output versionbag "version=$run_id"
             - write_output branchbag "branch_name=$run_id"
             - write_output pipelineVBag "pipeline_v=$run_id"
