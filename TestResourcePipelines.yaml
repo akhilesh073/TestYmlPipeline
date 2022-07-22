@@ -19,7 +19,7 @@ resources:
   - name: versionbag
     type: PropertyBag
     configuration:
-      version: ''
+      version: '1.0.0'
 
   - name: branchbag
     type: PropertyBag
