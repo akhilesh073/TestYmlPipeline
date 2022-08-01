@@ -60,8 +60,7 @@ pipelines:
           inputSteps:
             - name: simpleBash1
           inputResources:
-            - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: versionbag
         execution:
           onExecute:
             - printenv
@@ -89,3 +88,4 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - echo "${res_versionbag_version}"
