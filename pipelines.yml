@@ -1,162 +1,91 @@
 resources:
-  - name: propertyCanvas
+  - name: same_gitRepo1
+    type: GitRepo
+    configuration:
+      gitProvider: testInt
+      path: akhilesh073/TestYmlPipeline
+      branches:
+        include: master
+
+  - name: gitRepo_githubhttps
+    type: GitRepo
+    configuration:
+      gitProvider: testInt
+      path: akhilesh073/xray-pipelines-repo
+      cloneProtocol: https
+      branches:
+        include: main
+
+  - name: versionbag
     type: PropertyBag
     configuration:
-      key1: value1
-      key2: value2
-      pipelines: 'user_in'
-  - name: propertyCanvas2
+      version: '1.0.0'
+
+  - name: branchbag
     type: PropertyBag
     configuration:
-      key1: value1
-      key2: value2
+      branch_name: ''
+
+  - name: pipelineVBag
+    type: PropertyBag
+    configuration:
+      pipeline_v: ''
+
 pipelines:
-  - name: single_test
-    configuration:
-      environmentVariables:
-        readOnly:
-          pipevar1: 1
-          pipevar2: 2
+  - name: simplePipelines1
     steps:
-      - name: trigger_1_with_a_long_long_name_try_this
+      - name: simpleBash1
         type: Bash
         configuration:
-          affinityGroup: trigger
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 10
-      - name: trigger_2_and_with_a_long_long_name_try_this
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_1_with_a_long_long_name_try_this
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
-      - name: trigger_3
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_2_and_with_a_long_long_name_try_this
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 30
-      - name: trigger_4
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_3
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 40
-      - name: trigger_5
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_4
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 50
-      - name: trigger_6
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_5
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 60
-      - name: trigger_7
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_6
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 70
-  - name: trigger_test
-    configuration:
-      environmentVariables:
-        readOnly:
-          pipevar1: 1
-          pipevar2: 2
-    steps:
-      - name: trigger_2_and_with_a_long_long_name_try_this
-        type: Bash
-        configuration:
-          affinityGroup: g1
-          environmentVariables:
-            step2env1: 1
-            step2env2: 2
+          #           timeoutSeconds: 60
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
           outputResources:
-            - name: propertyCanvas
+            - name: versionbag
+            - name: branchbag
+            - name: pipelineVBag
         execution:
           onExecute:
-            - echo runs > cache.file
-            - add_cache_files cache.file runs.file
-            - echo "state=pipeline2" > cache.txt
-            - add_run_files cache.txt run_state_file
-            - add_pipeline_files cache.txt pipe_state_file
-            - write_output propertyCanvas "pipelines=$run_id"
-            - save_tests cache.txt
+            - printenv
+            #             - sleep 3m
+            - echo "aaa bbb ccc"
+            - write_output versionbag "version=$run_id"
+            - write_output branchbag "branch_name=$run_id"
+            - write_output pipelineVBag "pipeline_v=$run_id"
+
+      - name: simpleBash2
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: versionbag
+        execution:
+          onExecute:
+            - printenv
+      - name: simpleBash_abc
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: simpleBash4
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
