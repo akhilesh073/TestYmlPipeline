@@ -37,7 +37,7 @@ pipelines:
         configuration:
           affinityGroup: trigger
           inputSteps:
-            - name: trigger_1_with
+            - name: trigger_1
           environmentVariables:
             env1: 1
             env2:
