@@ -135,15 +135,14 @@ pipelines:
             - printenv
             - echo "done"
             - sleep 70
-  - name: trigger_test
+  - name: trigger_test_console
     configuration:
       environmentVariables:
         readOnly:
           pipevar1: 1
           pipevar2: 2
     steps:
-      - name: trigger_2_and_with_a_long_long_name_try_this
-        type: Bash
+      - name: trigger_2_console
         configuration:
           affinityGroup: g1
           environmentVariables:
@@ -154,9 +153,16 @@ pipelines:
         execution:
           onExecute:
             - echo runs > cache.file
-            - add_cache_files cache.file runs.file
-            - echo "state=pipeline2" > cache.txt
-            - add_run_files cache.txt run_state_file
-            - add_pipeline_files cache.txt pipe_state_file
-            - write_output propertyCanvas "pipelines=$run_id"
-            - save_tests cache.txt
+      - name: trigger_3_console
+        configuration:
+          affinityGroup: g1
+          inputSteps:
+            - name: trigger_2_console
+          environmentVariables:
+            step2env1: 1
+            step2env2: 2
+          outputResources:
+            - name: propertyCanvas
+        execution:
+          onExecute:
+            - echo runs > cache.file
