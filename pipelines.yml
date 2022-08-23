@@ -143,6 +143,7 @@ pipelines:
           pipevar2: 2
     steps:
       - name: trigger_2_console
+      type: Bash
         configuration:
           affinityGroup: g1
           environmentVariables:
@@ -154,6 +155,7 @@ pipelines:
           onExecute:
             - echo runs > cache.file
       - name: trigger_3_console
+      type: Bash
         configuration:
           affinityGroup: g1
           inputSteps:
