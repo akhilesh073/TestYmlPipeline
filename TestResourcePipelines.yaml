@@ -65,7 +65,7 @@ pipelines:
         execution:
           onExecute:
             - printenv
-      - name: simpleBash_abc
+      - name: simpleBash_a
         type: Bash
         configuration:
           inputSteps:
