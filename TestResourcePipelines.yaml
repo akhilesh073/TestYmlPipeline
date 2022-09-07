@@ -1,5 +1,5 @@
 resources:
-  - name: same_gitRepo1
+  - name: same_gitRepo
     type: GitRepo
     configuration:
       gitProvider: testInt
@@ -19,7 +19,7 @@ resources:
   - name: versionbag
     type: PropertyBag
     configuration:
-      version: '1.0.0'
+      version: '1.0.1'
 
   - name: branchbag
     type: PropertyBag
@@ -39,7 +39,7 @@ pipelines:
         configuration:
           #           timeoutSeconds: 60
           inputResources:
-            - name: same_gitRepo1
+            - name: same_gitRepo
             - name: gitRepo_githubhttps
           outputResources:
             - name: versionbag
@@ -60,7 +60,7 @@ pipelines:
           inputSteps:
             - name: simpleBash1
           inputResources:
-            - name: same_gitRepo1
+            - name: same_gitRepo
             - name: gitRepo_githubhttps
         execution:
           onExecute:
@@ -71,7 +71,7 @@ pipelines:
           inputSteps:
             - name: simpleBash1
           inputResources:
-            - name: same_gitRepo1
+            - name: same_gitRepo
             - name: gitRepo_githubhttps
         execution:
           onExecute:
@@ -85,7 +85,7 @@ pipelines:
           inputResources:
             - name: versionbag
             - name: gitRepo_githubhttps
-            - name: same_gitRepo1
+            - name: same_gitRepo
         execution:
           onExecute:
             - printenv
