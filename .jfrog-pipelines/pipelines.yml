@@ -59,6 +59,7 @@ pipelines:
         configuration:
           inputSteps:
             - name: simpleBash1
+            - name: simpleBash_abc
           inputResources:
             - name: versionbag
         execution:
@@ -67,8 +68,6 @@ pipelines:
       - name: simpleBash_abc
         type: Bash
         configuration:
-          inputSteps:
-            - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
             - name: gitRepo_githubhttps
