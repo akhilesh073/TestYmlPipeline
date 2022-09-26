@@ -77,7 +77,6 @@ pipelines:
         type: Bash
         configuration:
           inputSteps:
-            - name: simpleBash1
             - name: simpleBash2
           inputResources:
             - name: versionbag
