@@ -49,8 +49,6 @@ pipelines:
             #             - sleep 3m
             - echo "aaa bbb ccc"
             - write_output versionbag "version=$run_id"
-            - write_output branchbag "branch_name=$run_id"
-            - write_output pipelineVBag "pipeline_v=$run_id"
       - name: simpleBash_abc
         type: Bash
         configuration:
@@ -62,6 +60,7 @@ pipelines:
         execution:
           onExecute:
             - printenv
+            - write_output branchbag "branch_name=$run_id"
       - name: simpleBash2
         type: Bash
         configuration:
@@ -80,7 +79,6 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            - name: versionbag
             - name: gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
