@@ -43,8 +43,6 @@ pipelines:
             - name: gitRepo_githubhttps
           outputResources:
             - name: versionbag
-            - name: branchbag
-            - name: pipelineVBag
         execution:
           onExecute:
             - printenv
@@ -62,6 +60,8 @@ pipelines:
             - name: simpleBash_abc
           inputResources:
             - name: versionbag
+          outputResources:
+            - name: branchBag
         execution:
           onExecute:
             - printenv
