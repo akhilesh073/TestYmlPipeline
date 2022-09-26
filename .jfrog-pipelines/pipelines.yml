@@ -61,7 +61,7 @@ pipelines:
           inputResources:
             - name: versionbag
           outputResources:
-            - name: branchBag
+            - name: branchbag
         execution:
           onExecute:
             - printenv
