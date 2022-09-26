@@ -59,7 +59,6 @@ pipelines:
         configuration:
           inputSteps:
             - name: simpleBash1
-            - name: simpleBash_abc
           inputResources:
             - name: versionbag
         execution:
