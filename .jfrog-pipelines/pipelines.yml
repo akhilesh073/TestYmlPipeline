@@ -62,6 +62,8 @@ pipelines:
             - name: simpleBash_abc
           inputResources:
             - name: versionbag
+          outputResources:
+            - name: versionbag
         execution:
           onExecute:
             - printenv
