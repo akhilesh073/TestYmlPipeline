@@ -7,14 +7,14 @@ resources:
       branches:
         include: master
 
-  - name: gitRepo_githubhttps
-    type: GitRepo
-    configuration:
-      gitProvider: testInt
-      path: akhilesh073/LocalTemplatePipeline
-      cloneProtocol: https
-      branches:
-        include: main
+  # - name: gitRepo_githubhttps
+  #   type: GitRepo
+  #   configuration:
+  #     gitProvider: testInt
+  #     path: akhilesh073/LocalTemplatePipeline
+  #     cloneProtocol: https
+  #     branches:
+  #       include: main
 
   - name: versionbag
     type: PropertyBag
@@ -40,7 +40,7 @@ pipelines:
           #           timeoutSeconds: 60
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            # - name: gitRepo_githubhttps
           outputResources:
             - name: versionbag
         execution:
@@ -54,7 +54,7 @@ pipelines:
         configuration:
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            # - name: gitRepo_githubhttps
           outputResources:
             - name: branchbag
         execution:
@@ -79,7 +79,7 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            - name: gitRepo_githubhttps
+            # - name: gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
