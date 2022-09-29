@@ -1,11 +1,11 @@
 resources:
-  - name: same_gitRepo1
-    type: GitRepo
-    configuration:
-      gitProvider: testInt
-      path: akhilesh073/TestYmlPipeline
-      branches:
-        include: master
+  # - name: same_gitRepo1
+  #   type: GitRepo
+  #   configuration:
+  #     gitProvider: testInt
+  #     path: akhilesh073/TestYmlPipeline
+  #     branches:
+  #       include: master
 
   # - name: gitRepo_githubhttps
   #   type: GitRepo
@@ -39,7 +39,7 @@ pipelines:
         configuration:
           #           timeoutSeconds: 60
           inputResources:
-            - name: same_gitRepo1
+            - name: branchbag
           outputResources:
             - name: versionbag
         execution:
@@ -52,7 +52,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: same_gitRepo1
+            - name: branchbag
           outputResources:
             - name: branchbag
         execution:
@@ -77,7 +77,7 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            - name: same_gitRepo1
+            - name: branchbag
         execution:
           onExecute:
             - printenv
