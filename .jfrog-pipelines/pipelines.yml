@@ -38,8 +38,8 @@ pipelines:
         type: Bash
         configuration:
           #           timeoutSeconds: 60
-          inputResources:
-            - name: branchbag
+          # inputResources:
+          #   - name: branchbag
           outputResources:
             - name: versionbag
         execution:
