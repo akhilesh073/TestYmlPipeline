@@ -30,6 +30,10 @@ resources:
     type: PropertyBag
     configuration:
       pipeline_v: ''
+  - name: pipelineVBag1
+    type: PropertyBag
+    configuration:
+      pipeline_v: ''
 
 pipelines:
   - name: simplePipelines1
@@ -37,6 +41,8 @@ pipelines:
       - name: simpleBash
         type: Bash
         configuration:
+          inputResources:
+            - name: pipelineVBag1
         execution:
           onExecute:
             - printenv
