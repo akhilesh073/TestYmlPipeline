@@ -34,18 +34,18 @@ resources:
 pipelines:
   - name: simplePipelines1
     steps:
-    - name: simpleBash
-      type: Bash
-      configuration:
-        outputSteps:
-          - name: simpleBash1
-          - name: simpleBash_abc
-      execution:
-        onExecute:
-          - printenv
-          #             - sleep 3m
-          - echo "aaa bbb ccc"
-          - write_output versionbag "version=$run_id"
+      - name: simpleBash
+        type: Bash
+        configuration:
+          outputSteps:
+            - name: simpleBash1
+            - name: simpleBash_abc
+        execution:
+          onExecute:
+            - printenv
+            #             - sleep 3m
+            - echo "aaa bbb ccc"
+            - write_output versionbag "version=$run_id"
       - name: simpleBash1
         type: Bash
         configuration:
