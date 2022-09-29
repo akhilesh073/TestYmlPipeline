@@ -52,7 +52,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: branchbag
+            - name: pipelineVBag
           outputResources:
             - name: branchbag
         execution:
@@ -67,7 +67,7 @@ pipelines:
             - name: simpleBash_abc
           inputResources:
             - name: versionbag
-            - name: branchbag
+            - name: pipelineVBag
         execution:
           onExecute:
             - printenv
