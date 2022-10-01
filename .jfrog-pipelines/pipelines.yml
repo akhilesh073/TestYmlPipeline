@@ -1,19 +1,19 @@
 resources:
-  - name: versionbag
+  - name: versionbag1
     type: PropertyBag
     configuration:
       version: '1.0.0'
 
-  - name: branchbag
+  - name: branchbag1
     type: PropertyBag
     configuration:
       branch_name: ''
 
-  - name: pipelineVBag
+  - name: pipelineVBag2
     type: PropertyBag
     configuration:
       pipeline_v: ''
-  - name: pipelineVBag1
+  - name: pipelineVBag3
     type: PropertyBag
     configuration:
       pipeline_v: ''
@@ -25,24 +25,24 @@ pipelines:
         type: Bash
         configuration:
           outputResources:
-            - name: versionbag
+            - name: versionbag1
         execution:
           onExecute:
             - printenv
             #             - sleep 3m
             - echo "aaa bbb ccc"
-            - write_output versionbag "version=$run_id"
+            - write_output versionbag1 "version=$run_id"
       - name: simpleBash_abc
         type: Bash
         configuration:
           inputResources:
-            - name: pipelineVBag
+            - name: pipelineVBag2
           outputResources:
-            - name: branchbag
+            - name: branchbag1
         execution:
           onExecute:
             - printenv
-            - write_output branchbag "branch_name=$run_id"
+            - write_output branchbag1 "branch_name=$run_id"
       - name: simpleBash2
         type: Bash
         configuration:
@@ -50,8 +50,8 @@ pipelines:
             - name: simpleBash1
             - name: simpleBash_abc
           inputResources:
-            - name: versionbag
-            - name: pipelineVBag
+            - name: versionbag1
+            - name: pipelineVBag2
         execution:
           onExecute:
             - printenv
@@ -61,7 +61,7 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            - name: branchbag
+            - name: branchbag1
         execution:
           onExecute:
             - printenv
