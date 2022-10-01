@@ -1,48 +1,48 @@
 resources:
-  - name: versionbag1
+  - name: versionbag11
     type: PropertyBag
     configuration:
       version: '1.0.0'
 
-  - name: branchbag1
+  - name: branchbag11
     type: PropertyBag
     configuration:
       branch_name: ''
 
-  - name: pipelineVBag2
-    type: PropertyBag
-    configuration:
-      pipeline_v: ''
-  - name: pipelineVBag3
+  - name: pipelineVBag11
     type: PropertyBag
     configuration:
       pipeline_v: ''
 
 pipelines:
-  - name: simplePipelines1
+  - name: simplePipelines2
     steps:
       - name: simpleBash1
         type: Bash
         configuration:
+          inputSteps:
+            - name: simpleBash
           outputResources:
-            - name: versionbag1
+            - name: versionbag11
         execution:
           onExecute:
             - printenv
             #             - sleep 3m
             - echo "aaa bbb ccc"
-            - write_output versionbag1 "version=$run_id"
+            - write_output versionbag11 "version=$run_id"
       - name: simpleBash_abc
         type: Bash
         configuration:
+          inputSteps:
+            - name: simpleBash
           inputResources:
-            - name: pipelineVBag2
+            - name: pipelineVBag11
           outputResources:
-            - name: branchbag1
+            - name: branchbag11
         execution:
           onExecute:
             - printenv
-            - write_output branchbag1 "branch_name=$run_id"
+            - write_output branchbag11 "branch_name=$run_id"
       - name: simpleBash2
         type: Bash
         configuration:
@@ -50,8 +50,8 @@ pipelines:
             - name: simpleBash1
             - name: simpleBash_abc
           inputResources:
-            - name: versionbag1
-            - name: pipelineVBag2
+            - name: versionbag11
+            - name: pipelineVBag11
         execution:
           onExecute:
             - printenv
@@ -61,8 +61,7 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            - name: branchbag1
+            - name: branchbag11
         execution:
           onExecute:
             - printenv
-            - echo "${res_versionbag_version}"
