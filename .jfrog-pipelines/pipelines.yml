@@ -1,21 +1,4 @@
 resources:
-  - name: same_gitRepo1
-    type: GitRepo
-    configuration:
-      gitProvider: testInt
-      path: akhilesh073/TestYmlPipeline
-      branches:
-        include: master
-
-  # - name: gitRepo_githubhttps
-  #   type: GitRepo
-  #   configuration:
-  #     gitProvider: testInt
-  #     path: akhilesh073/LocalTemplatePipeline
-  #     cloneProtocol: https
-  #     branches:
-  #       include: main
-
   - name: versionbag
     type: PropertyBag
     configuration:
@@ -30,6 +13,10 @@ resources:
     type: PropertyBag
     configuration:
       pipeline_v: ''
+  - name: pipelineVBag1
+    type: PropertyBag
+    configuration:
+      pipeline_v: ''
 
 pipelines:
   - name: simplePipelines1
@@ -37,10 +24,6 @@ pipelines:
       - name: simpleBash1
         type: Bash
         configuration:
-          #           timeoutSeconds: 60
-          inputResources:
-            - name: same_gitRepo1
-            # - name: gitRepo_githubhttps
           outputResources:
             - name: versionbag
         execution:
@@ -53,8 +36,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: same_gitRepo1
-            # - name: gitRepo_githubhttps
+            - name: pipelineVBag
           outputResources:
             - name: branchbag
         execution:
@@ -69,7 +51,7 @@ pipelines:
             - name: simpleBash_abc
           inputResources:
             - name: versionbag
-            - name: branchbag
+            - name: pipelineVBag
         execution:
           onExecute:
             - printenv
@@ -79,8 +61,7 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            # - name: gitRepo_githubhttps
-            - name: same_gitRepo1
+            - name: branchbag
         execution:
           onExecute:
             - printenv
