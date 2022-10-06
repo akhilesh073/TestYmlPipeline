@@ -1,63 +1,42 @@
-resources:
-  - name: versionbag11
-    type: PropertyBag
-    configuration:
-      version: '1.0.0'
-
-  - name: branchbag11
-    type: PropertyBag
-    configuration:
-      branch_name: ''
-
-  - name: pipelineVBag11
-    type: PropertyBag
-    configuration:
-      pipeline_v: ''
-
 pipelines:
-  - name: simplePipelines2
+  - name: varsha_Matrix_test
     steps:
-      - name: simpleBash1
-        type: Bash
-        configuration:
-          outputResources:
-            - name: versionbag11
+      - name: S_Matrix_0048pre
+        type: PreMatrix
         execution:
           onExecute:
-            - printenv
-            #             - sleep 3m
-            - echo "aaa bbb ccc"
-            - write_output versionbag11 "version=$run_id"
-      - name: simpleBash_abc
-        type: Bash
-        configuration:
-          inputResources:
-            - name: pipelineVBag11
-          outputResources:
-            - name: branchbag11
-        execution:
-          onExecute:
-            - printenv
-            - write_output branchbag11 "branch_name=$run_id"
-      - name: simpleBash2
-        type: Bash
+            - echo "Preparing the code base"
+            - npm install
+            - echo "Installed npm"
+
+      - name: S_Matrix_0048mat
+        type: Matrix
+        stepMode: Bash
         configuration:
           inputSteps:
-            - name: simpleBash1
-            - name: simpleBash_abc
-          inputResources:
-            - name: versionbag11
-            - name: pipelineVBag11
+            - name: S_Matrix_0048pre
+        stepletMultipliers:
+          environmentVariables:
+            - animal: dog
+              bird: sparrow
+          runtimes:
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 12
+
         execution:
           onExecute:
-            - printenv
-      - name: simpleBash4
-        type: Bash
+            - echo "Executing matrix step on ${steplet_id}"
+            - echo "Variation animal = ${animal}, bird = ${bird}"
+
+      - name: S_Matrix_0048post
+        type: PostMatrix
         configuration:
           inputSteps:
-            - name: simpleBash2
-          inputResources:
-            - name: branchbag11
+            - name: S_Matrix_0048mat
         execution:
           onExecute:
-            - printenv
+            - echo "Executing the output step"
