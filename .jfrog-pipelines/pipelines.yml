@@ -37,7 +37,7 @@ pipelines:
             - name: branchbag11
         execution:
           onExecute:
-            - printenv
+            - printenv111
             - write_output branchbag11 "branch_name=$run_id"
       - name: simpleBash2
         type: Bash
