@@ -1,56 +1,297 @@
 resources:
-  - name: versionbag111
+  - name: triggerLightWeightAutomation
     type: PropertyBag
     configuration:
-      version: '1.0.0'
-
-  - name: branchbag111
+      jpdUrl: ''
+      joinKey: ''
+      branchPipelinesVersion: ''
+  - name: environmentSetupBag
     type: PropertyBag
     configuration:
-      branch_name: ''
-
-  - name: pipelineVBag111
+      pipelinesVersion: ''
+      serverName: ''
+      masterKey: ''
+  - name: environmentOperateBag
+    type: PropertyBag
+    configuration:
+      pipelinesVersion: ''
+      serverName: ''
+  - name: branchSnapshotBag
+    type: PropertyBag
+    configuration:
+      snapshotVersion: ''
+  - name: cpGit
     type: GitRepo
     configuration:
-      pipeline_v: ''
+      path: PIP/controlplane
+      gitProvider: JFrog_bitbucket
+      branches:
+        include: ^bugfix/PIPE-10251$
+name: branch_automation_setup
+configuration:
+  chronological: true
+  environmentVariables:
+    readOnly:
+      NAMESPACE_PREFIX:
+        allowCustom: true
+        default: p
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: password
+steps:
+  - name: decide_whether_to_create_or_update_dev2cloud
+    type: Bash
+    configuration:
+      integrations:
+        - name: entArt
+        - name: dockerDotJfrog
+      inputResources:
+        - name: branchSnapshotBag
+        - name: cpGit
+          trigger: false
+      outputResources:
+        - name: environmentSetupBag
+        - name: environmentOperateBag
+        - name: triggerLightWeightAutomation
+    execution:
+      onExecute:
+        - pushd $res_cpGit_resourcePath
+        - NORMALIZED_VERSION=$(./normalizeReleaseVersion.sh bugfix/PIPE-10251)
+        - |
+          if [ -z "$master_key" ]; then
+            master_key=$(openssl rand -hex 16)
+          fi
+        - add_pipeline_variables master_key="$master_key"
+        - |
+          if [ ! -z "$res_branchSnapshotBag_snapshotVersion" ]; then
+            add_pipeline_variables VERSION="${res_branchSnapshotBag_snapshotVersion}"
+          elif [ ! -z "$BRANCH_VERSION" ]; then
+            add_pipeline_variables VERSION="$BRANCH_VERSION"
+          else
+            echo "BRANCH_VERSION not specified"
+            exit 1
+          fi
+        - |
+          if [ -z "$res_branchSnapshotBag_chartVersion"]; then
+            add_run_variables CHART_VERSION=10$(curl -s "https://versions.jfrog.info/latestVersions?products=pipelines" | jq -r '.pipelines.release')
+            echo setting chart version to be $CHART_VERSION
+          else
+            add_run_variables CHART_VERSION=$res_branchSnapshotBag_chartVersion
+          fi
+        - export serverNamePrefix=$NAMESPACE_PREFIX
+        - |
+          if [ "$res_branchSnapshotBag_branchName" == "master" ]; then
+            serverNamePrefix="jfpip"
+          fi
+        - >-
+          add_pipeline_variables ping_response=$(curl
+          https://$serverNamePrefix${NORMALIZED_VERSION:6}.jfrogdev.org/artifactory/api/system/ping)
+          || true
+        - >-
+          add_pipeline_variables
+          serverNameInJenkins=$serverNamePrefix${NORMALIZED_VERSION:6}
+        - echo $ping_response
+        - |
+          if [[ "$ping_response" == "OK" ]];
+          then
+            if [[ "$res_branchSnapshotBag_onlyAutomationChange" == "true" ]]; then
+              exit 0
+            fi
+            write_output environmentOperateBag "pipelinesVersion=${VERSION}"
+            write_output environmentOperateBag "chartVersion=101.27.5"
+            write_output environmentOperateBag "serverName=$serverNameInJenkins"
+            write_output environmentOperateBag "committer=$res_branchSnapshotBag_committer"
+            write_output environmentOperateBag "branchName=$res_branchSnapshotBag_branchName"
+          else
+            write_output environmentSetupBag "pipelinesVersion=${VERSION}"
+            write_output environmentSetupBag "chartVersion=101.27.5"
+            write_output environmentSetupBag "serverName=$serverNameInJenkins"
+            write_output environmentSetupBag "masterKey=$master_key"
+            write_output environmentSetupBag "committer=$res_branchSnapshotBag_committer"
+            write_output environmentSetupBag "branchName=$res_branchSnapshotBag_branchName"
+          fi
+  - name: branch_environment_setup
+    type: Jenkins
+    configuration:
+      inputResources:
+        - name: environmentSetupBag
+          newVersionOnly: true
+      integrations:
+        - name: jenkins_entplus_ci
+      jenkinsJobName: tools/platform/environment_setup
+      buildParameters:
+        SERVER_NAME: '${res_environmentSetupBag_serverName}'
+        ACCOUNT_TYPE: enterprise_plus
+        GROUP: PIPELINES
+        EXPIRY: 2w
+        XRAY: 'false'
+        PIPELINES: 'true'
+        JFMC: 'false'
+        DISTRIBUTION: 'false'
+        INSIGHT: 'false'
+        DEPLOYMENT_TYPE: onprem
+        REGION: dev-aps1
+        DEBUG_ENVIRONMENT: 'false'
+        LOGS_TO_KIBANA: 'true'
+        EXTRA_PARAMS: >-
+          master_key=${res_environmentSetupBag_masterKey}
 
-pipelines:
-  - name: simplePipelines2
-    steps:
-      - name: simpleBash1
-        type: Bash
-        configuration:
-          outputResources:
-            - name: versionbag111
-        execution:
-          onExecute:
-            - printenv
-            #             - sleep 3m
-            - echo "aaa bbb ccc"
-            - write_output versionbag111 "version=$run_id"
-      - name: simpleBash_abc
-        type: DockerBuild
-        configuration:
-          dockerImageName: 'testDocker'
-          dockerImageTag: 'testTag'
-          inputResources:
-            - name: pipelineVBag111
-          outputResources:
-            - name: branchbag111
-      - name: simpleBash2
-        type: Jenkins
-        configuration:
-          jenkinsJobName: 'testJenkin'
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash_abc
-          inputResources:
-            - name: versionbag111
-            - name: pipelineVBag111
-      - name: simpleBash4
-        type: MvnBuild
-        configuration:
-          inputSteps:
-            - name: simpleBash2
-          inputResources:
-            - name: branchbag111
+          pipelines_signed_pipelines_enabled=true
+
+          conf_pipelines_chart_version=${res_environmentSetupBag_chartVersion}
+
+          conf_pipelines_unified_version=${res_environmentSetupBag_pipelinesVersion}
+
+          chart_app_version_unalignment_enabled=true
+
+          artifactory_special_properties=staging.mode=true
+
+          feature_jfconnect_enabled=False
+
+          whitelist_cidr=20.184.243.216/32;146.148.8.199/32;104.192.136.0/21;185.166.140.0/22;18.205.93.0/25;18.234.32.128/25;13.52.5.0/25;34.74.90.64/28;34.74.226.0/24;13.52.5.96/28;13.236.8.224/28;18.136.214.96/28;18.184.99.224/28;18.234.32.224/28;18.246.31.224/28;52.215.192.224/28;104.192.137.240/28;104.192.138.240/28;104.192.140.240/28;104.192.142.240/28;104.192.143.240/28;185.166.143.240/28;185.166.142.240/28
+
+          pipelines_auth_token=Testing1234
+
+          pipelines_rabbitmq_persistence_enabled=true
+
+          pipelines_api_url_enabled=false
+  - name: branch_environment_operate
+    type: Jenkins
+    configuration:
+      inputResources:
+        - name: environmentOperateBag
+          newVersionOnly: true
+      integrations:
+        - name: jenkins_entplus_ci
+      jenkinsJobName: tools/platform/environment_operate
+      buildParameters:
+        SERVER_NAME: '${res_environmentOperateBag_serverName}'
+        EXPIRY: 2w
+        ACTION: upgrade
+        EXTRA_PARAMS: >-
+          conf_pipelines_unified_version=${res_environmentOperateBag_pipelinesVersion}
+
+          chart_app_version_unalignment_enabled=true
+
+          conf_pipelines_chart_version=${res_environmentOperateBag_chartVersion}
+
+          artifactory_special_properties=staging.mode=true
+
+          feature_jfconnect_enabled=False
+
+          pipelines_api_url_enabled=false
+  - name: branch_environment_status
+    type: Bash
+    configuration:
+      integrations:
+        - name: pipelines_mqtest_slack
+      inputResources:
+        - name: environmentSetupBag
+          trigger: false
+        - name: environmentOperateBag
+          trigger: false
+      inputSteps:
+        - name: branch_environment_setup
+          status:
+            - timeout
+            - skipped
+            - success
+            - failure
+        - name: branch_environment_operate
+          status:
+            - timeout
+            - skipped
+            - success
+            - failure
+        - name: decide_whether_to_create_or_update_dev2cloud
+          status:
+            - failure
+            - success
+      outputResources:
+        - name: triggerLightWeightAutomation
+    execution:
+      onExecute:
+        - export expectedVersion=""
+        - export serverName=$serverNameInJenkins
+        - >
+          if [[ "$res_environmentOperateBag_pipelinesVersion" ]]
+
+          then
+            expectedVersion=$res_environmentOperateBag_pipelinesVersion
+            export committer=$res_environmentOperateBag_committer
+            export branchName=$res_environmentOperateBag_branchName
+          else
+            export committer=$res_environmentSetupBag_committer
+            export branchName=$res_environmentSetupBag_branchName
+            expectedVersion=$res_environmentSetupBag_pipelinesVersion
+            export counter=1
+            while [ "$(curl https://${serverName}.jfrogdev.org/artifactory/api/system/ping)" != "OK" ] && [ $counter -lt 20 ]; do
+              echo "retrying again in 10 seconds hitting https://${serverName}.jfrogdev.org/artifactory/api/system/ping"
+              sleep 10
+              counter=$(( counter + 1 ))
+            done
+            if [ $counter -ge 20 ]; then
+              echo "RT not up in branch env"
+              exit 1
+            fi
+          fi
+
+          if [[ "$(curl --location --request GET
+          "https://${serverName}.jfrogdev.org/artifactory/api/system/ping" -u
+          admin:Password@1)" != "OK" ]]
+            then
+              if [[ "$(curl --location --request GET "https://${serverName}.jfrogdev.org/artifactory/api/system/ping" -u admin:password)" = "OK" ]]
+                then
+                  echo "Updating the password of instance to Password@1, assuming the password is password"
+                  curl --location --request POST "https://${serverName}.jfrogdev.org/artifactory/api/security/users/authorization/changePassword" \
+                  --header 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
+                  --header 'Content-Type: application/json' \
+                  --data-raw '{
+                      "userName" : "admin",
+                      "oldPassword" : "password",
+                      "newPassword1" : "Password@1",
+                      "newPassword2" : "Password@1"
+                  }'
+                else
+                  echo "Updating the password of instance to Password@1, assuming the password is Password1"
+                  curl --location --request POST "https://${serverName}.jfrogdev.org/artifactory/api/security/users/authorization/changePassword" \
+                  --header 'Authorization: Basic YWRtaW46UGFzc3dvcmQx' \
+                  --header 'Content-Type: application/json' \
+                  --data-raw '{
+                      "userName" : "admin",
+                      "oldPassword" : "Password1",
+                      "newPassword1" : "Password@1",
+                      "newPassword2" : "Password@1"
+                  }'
+              fi
+          fi
+        - >-
+          curl -s
+          https://${serverName}.jfrogdev.org/pipelines/api/v1/system/info
+        - >
+          export counter=1
+
+          while [[ "$(curl -s
+          https://${serverName}.jfrogdev.org/pipelines/api/v1/system/info | jq
+          -r .version)" != ${expectedVersion} ]] && [ $counter -lt 60 ]; do
+            sleep 5
+            counter=$(( counter + 1 ))
+          done
+
+          if [ $counter -ge 60 ]; then
+            echo "Branch environment doesnt have required Pipelines version"
+            exit 1
+          fi
+        - >-
+          write_output triggerLightWeightAutomation
+          "jpdUrl=https://${serverName}.jfrogdev.org"
+        - write_output triggerLightWeightAutomation "joinKey=$master_key"
+        - >-
+          write_output triggerLightWeightAutomation
+          "branchPipelinesVersion=$expectedVersion"
+        - write_output triggerLightWeightAutomation "stepId=$step_id"
+      onFailure:
+        - >-
+          send_notification pipelines_mqtest_slack --text "Pipeline -
+          $pipeline_name | Step - $step_name \n Unable to create/upgrade branch
+          environment \n Committer - <$committer> \n Branch - $branchName \n URL
+          - $step_url"
