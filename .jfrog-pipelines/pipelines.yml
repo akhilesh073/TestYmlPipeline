@@ -24,7 +24,7 @@ pipelines:
             - name: versionbag11
         execution:
           onExecute:
-            - printenv failure
+            - printenv
             #             - sleep 3m
             - echo "aaa bbb ccc"
             - write_output versionbag11 "version=$run_id"
