@@ -13,6 +13,12 @@ resources:
     type: PropertyBag
     configuration:
       pipeline_v: ''
+  - name: environmentSetupBag
+    type: PropertyBag
+    configuration:
+      pipelinesVersion: ''
+      serverName: ''
+      masterKey: ''
 
 pipelines:
   - name: simplePipelines2
@@ -39,6 +45,12 @@ pipelines:
           onExecute:
             - printenv111
             - write_output branchbag11 "branch_name=$run_id"
+      - name: branch_environment_setup
+          type: Jenkins
+          configuration:
+            inputResources:
+              - name: environmentSetupBag
+            jenkinsJobName: tools/platform/environment_setup
       - name: simpleBash2
         type: Jenkins
         configuration:
