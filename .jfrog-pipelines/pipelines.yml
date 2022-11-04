@@ -25,11 +25,8 @@ resources:
     configuration:
       path: akhilesh073/TestYmlPipeline
       gitProvider: testInt
-      branches:
-        include: ^su$
 name: branch_automation_setup
 configuration:
-  chronological: true
   environmentVariables:
     readOnly:
       NAMESPACE_PREFIX:
