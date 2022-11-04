@@ -1,15 +1,15 @@
 resources:
-  - name: versionbag11
+  - name: versionbag113
     type: PropertyBag
     configuration:
       version: '1.0.0'
 
-  - name: branchbag11
+  - name: branchbag113
     type: PropertyBag
     configuration:
       branch_name: ''
 
-  - name: pipelineVBag11
+  - name: pipelineVBag113
     type: PropertyBag
     configuration:
       pipeline_v: ''
@@ -27,24 +27,24 @@ pipelines:
         type: Bash
         configuration:
           outputResources:
-            - name: versionbag11
+            - name: versionbag113
         execution:
           onExecute:
             - printenv
             #             - sleep 3m
             - echo "aaa bbb ccc"
-            - write_output versionbag11 "version=$run_id"
+            - write_output versionbag113 "version=$run_id"
       - name: simpleBash_abc
         type: DockerBuild
         configuration:
           inputResources:
-            - name: pipelineVBag11
+            - name: pipelineVBag113
           outputResources:
-            - name: branchbag11
+            - name: branchbag113
         execution:
           onExecute:
-            - printenv111
-            - write_output branchbag11 "branch_name=$run_id"
+            - printenv1113
+            - write_output branchbag113 "branch_name=$run_id"
       - name: branch_environment_setup
           type: Jenkins
           configuration:
@@ -58,8 +58,8 @@ pipelines:
             - name: simpleBash1
             - name: simpleBash_abc
           inputResources:
-            - name: versionbag11
-            - name: pipelineVBag11
+            - name: versionbag113
+            - name: pipelineVBag113
         execution:
           onExecute:
             - printenv
@@ -69,7 +69,7 @@ pipelines:
           inputSteps:
             - name: simpleBash2
           inputResources:
-            - name: branchbag11
+            - name: branchbag113
         execution:
           onExecute:
             - printenv
