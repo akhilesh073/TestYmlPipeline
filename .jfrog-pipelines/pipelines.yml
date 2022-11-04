@@ -31,17 +31,16 @@ pipelines:
       - name: simpleBash_abc
         type: DockerBuild
         configuration:
+          dockerImageName: 'testDocker'
+          dockerImageTag: 'testTag'
           inputResources:
             - name: pipelineVBag111
           outputResources:
             - name: branchbag111
-        execution:
-          onExecute:
-            - printenv111
-            - write_output branchbag111 "branch_name=$run_id"
       - name: simpleBash2
         type: Jenkins
         configuration:
+          jenkinsJobName: 'testJenkin'
           inputSteps:
             - name: simpleBash1
             - name: simpleBash_abc
@@ -59,5 +58,3 @@ pipelines:
           inputResources:
             - name: branchbag111
         execution:
-          onExecute:
-            - printenv
