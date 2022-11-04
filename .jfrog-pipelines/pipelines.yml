@@ -23,7 +23,7 @@ resources:
   - name: cpGit
     type: GitRepo
     configuration:
-      path: akhilesh073/jfrog-pipelines-matrix-example
+      path: akhilesh073/TestYmlPipeline
       gitProvider: testInt
       branches:
         include: ^s$
