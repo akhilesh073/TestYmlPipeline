@@ -114,7 +114,6 @@ steps:
     configuration:
       inputResources:
         - name: environmentSetupBag
-          newVersionOnly: true
       integrations:
         - name: jenkins_entplus_ci
       jenkinsJobName: tools/platform/environment_setup
@@ -159,7 +158,6 @@ steps:
     configuration:
       inputResources:
         - name: environmentOperateBag
-          newVersionOnly: true
       integrations:
         - name: jenkins_entplus_ci
       jenkinsJobName: tools/platform/environment_operate
@@ -186,9 +184,9 @@ steps:
         - name: pipelines_mqtest_slack
       inputResources:
         - name: environmentSetupBag
-          trigger: false
+          trigger: true
         - name: environmentOperateBag
-          trigger: false
+          trigger: true
       inputSteps:
         - name: branch_environment_setup
           status:
