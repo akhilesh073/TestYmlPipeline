@@ -10,7 +10,7 @@ resources:
       branch_name: ''
 
   - name: pipelineVBag111
-    type: PropertyBag
+    type: GitRepo
     configuration:
       pipeline_v: ''
 
@@ -47,9 +47,6 @@ pipelines:
           inputResources:
             - name: versionbag111
             - name: pipelineVBag111
-        execution:
-          onExecute:
-            - printenv
       - name: simpleBash4
         type: MvnBuild
         configuration:
@@ -57,4 +54,3 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: branchbag111
-        execution:
