@@ -47,7 +47,7 @@ steps:
       inputResources:
         - name: branchSnapshotBag
         - name: cpGit
-          trigger: false
+          trigger: true
       outputResources:
         - name: environmentSetupBag
         - name: environmentOperateBag
