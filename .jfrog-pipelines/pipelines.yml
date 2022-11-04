@@ -23,8 +23,8 @@ resources:
   - name: cpGit
     type: GitRepo
     configuration:
-      path: PIP/controlplane
-      gitProvider: JFrog_bitbucket
+      path: akhilesh073/jfrog-pipelines-matrix-example
+      gitProvider: testInt
       branches:
         include: ^bugfix/PIPE-10251$
 name: branch_automation_setup
