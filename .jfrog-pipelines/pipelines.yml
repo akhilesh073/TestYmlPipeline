@@ -52,7 +52,7 @@ pipelines:
           onExecute:
             - printenv
       - name: simpleBash4
-        type: MvnBuild
+        type: Bash
         configuration:
           inputSteps:
             - name: simpleBash2
