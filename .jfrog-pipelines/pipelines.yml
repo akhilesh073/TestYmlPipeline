@@ -29,7 +29,7 @@ pipelines:
             - echo "aaa bbb ccc"
             - write_output versionbag11 "version=$run_id"
       - name: simpleBash_abc
-        type: DockerBuild
+        type: Bash
         configuration:
           inputResources:
             - name: pipelineVBag11
@@ -40,7 +40,7 @@ pipelines:
             - printenv
             - write_output branchbag11 "branch_name=$run_id"
       - name: simpleBash2
-        type: Jenkins
+        type: Bash
         configuration:
           inputSteps:
             - name: simpleBash1
