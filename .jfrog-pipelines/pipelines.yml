@@ -16,9 +16,10 @@ resources:
 
 pipelines:
   - name: simplePipelines2
-  environmentVariables:
-        env1:     value1
-        env2:     value2
+    configuration:
+      environmentVariables:
+        env1: value1
+        env2: value2
     steps:
       - name: simpleBash1
         type: Bash
