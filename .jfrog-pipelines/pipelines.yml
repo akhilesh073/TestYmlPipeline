@@ -20,8 +20,11 @@ pipelines:
       - name: simpleBash1
         type: Bash
         configuration:
-          outputResources:
-            - name: versionbag11
+        environmentVariables:
+          env1: value1
+          env2: value2
+        outputResources:
+          - name: versionbag11
         execution:
           onExecute:
             - printenv
