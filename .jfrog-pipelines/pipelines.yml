@@ -20,7 +20,13 @@ pipelines:
       environmentVariables:
         readOnly:
           env1: value1
-          env2: value2
+          env2:
+            default: value1
+            description: env2 description
+            values:
+              - value1
+              - value2
+              - value3
     steps:
       - name: simpleBash1
         type: Bash
