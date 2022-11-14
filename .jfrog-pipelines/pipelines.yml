@@ -18,12 +18,16 @@ pipelines:
   - name: simplePipelines2
     configuration:
       environmentVariables:
-        env1: value1
-        env2: value2
+        readOnly:
+          env1: value1
+          env2: value2
     steps:
       - name: simpleBash1
         type: Bash
         configuration:
+          environmentVariables:
+            env3: value3
+            env4: value4
           outputResources:
             - name: versionbag11
         execution:
