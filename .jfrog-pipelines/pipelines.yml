@@ -27,6 +27,7 @@ pipelines:
               - value1
               - value2
               - value3
+            allowCustom: true
     steps:
       - name: simpleBash1
         type: Bash
