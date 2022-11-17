@@ -87,5 +87,5 @@ pipelines:
             - name: same_gitRepo1
         execution:
           onExecute:
-            - printenv
+            - printenvaaa
             - echo "${res_versionbag_version}"
