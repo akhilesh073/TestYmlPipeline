@@ -47,7 +47,7 @@ pipelines:
             - name: pipelineVBag
         execution:
           onExecute:
-            - printenv
+            - printenvabc fsafdfafasd
             #             - sleep 3m
             - echo "aaa bbb ccc"
             - write_output versionbag "version=$run_id"
