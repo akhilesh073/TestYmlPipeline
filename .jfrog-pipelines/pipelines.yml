@@ -63,7 +63,7 @@ pipelines:
             - name: versionbag
         execution:
           onExecute:
-            - printenv dddd
+            - printenv
       - name: simpleBash_abc
         type: Bash
         configuration:
@@ -74,7 +74,7 @@ pipelines:
             - name: gitRepo_githubhttps
         execution:
           onExecute:
-            - printenv
+            - printenv ddd
       - name: simpleBash4
         type: Bash
         configuration:
