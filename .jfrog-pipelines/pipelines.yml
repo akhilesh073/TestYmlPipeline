@@ -63,7 +63,7 @@ pipelines:
             - name: versionbag
         execution:
           onExecute:
-            - printenv
+            - printenvbbb
       - name: simpleBash_abc
         type: Bash
         configuration:
