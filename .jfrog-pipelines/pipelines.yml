@@ -47,7 +47,7 @@ pipelines:
             - name: pipelineVBag
         execution:
           onExecute:
-            - printenvabc fsafdfafasd
+            - printenv
             #             - sleep 3m
             - echo "aaa bbb ccc"
             - write_output versionbag "version=$run_id"
@@ -63,7 +63,7 @@ pipelines:
             - name: versionbag
         execution:
           onExecute:
-            - printenvbbb
+            - printenv dddd
       - name: simpleBash_abc
         type: Bash
         configuration:
@@ -87,5 +87,5 @@ pipelines:
             - name: same_gitRepo1
         execution:
           onExecute:
-            - printenvaaa
+            - printenv ccc
             - echo "${res_versionbag_version}"
