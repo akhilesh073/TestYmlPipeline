@@ -40,15 +40,31 @@ pipelines:
           v2: carrot
           v3: iron
           v4: broccoli
+          v5: copper
+          v6: carrot
+          v7: iron
+          v8: broccoli
+          v9: copper
+          v10: carrot
+          v11: iron
+          v12: broccoli
     steps:
       - name: simpleBash1
         type: Bash
         configuration:
           environmentVariables:
-            mineral: copper
-            abc: carrot
-            def: iron
-            vegetable: broccoli
+            s1v1: copper
+            s1v2: carrot
+            s1v3: iron
+            s1v4: broccoli
+            s1v5: copper
+            s1v6: carrot
+            s1v7: iron
+            s1v8: broccoli
+            s1v9: copper
+            s1v10: carrot
+            s1v11: iron
+            s1v12: broccoli
           #           timeoutSeconds: 60
           inputResources:
             - name: same_gitRepo1
@@ -69,6 +85,19 @@ pipelines:
       - name: simpleBash2
         type: Bash
         configuration:
+          environmentVariables:
+            s1v1: copper
+            s1v2: carrot
+            s1v3: iron
+            s1v4: broccoli
+            s1v5: copper
+            s1v6: carrot
+            s1v7: iron
+            s1v8: broccoli
+            s1v9: copper
+            s1v10: carrot
+            s1v11: iron
+            s1v12: broccoli
           inputSteps:
             - name: simpleBash1
           inputResources:
@@ -88,6 +117,258 @@ pipelines:
           onExecute:
             - printenv
       - name: simpleBash4
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: simpleBash_abc
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: simpleBash4
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+
+      - name: simpleBash_abc
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: simpleBash4
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step5
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step6
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step7
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step8
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step9
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step10
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step11
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step512
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+
+      - name: step513
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step514
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step515
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step516
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step517
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step518
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: gitRepo_githubhttps
+            - name: same_gitRepo1
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: step519
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash1
+          inputResources:
+            - name: same_gitRepo1
+            - name: gitRepo_githubhttps
+        execution:
+          onExecute:
+            - printenv
+      - name: step520
         type: Bash
         configuration:
           inputSteps:
