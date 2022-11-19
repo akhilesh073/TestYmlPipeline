@@ -38,11 +38,10 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables: # Sets of environment variables for steplets
-              mineral: copper
-              vegetable: carrot
-              mineral: iron
-              vegetable: broccoli
-              mineral: lead
+            mineral: copper
+            abc: carrot
+            def: iron
+            vegetable: broccoli
           #           timeoutSeconds: 60
           inputResources:
             - name: same_gitRepo1
