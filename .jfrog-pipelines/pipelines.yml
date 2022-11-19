@@ -33,11 +33,17 @@ resources:
 
 pipelines:
   - name: simplePipelines1
+    configuration:
+      environmentVariables: # Sets of environment variables for steplets
+        v1: copper
+        v2: carrot
+        v3: iron
+        v4: broccoli
     steps:
       - name: simpleBash1
         type: Bash
         configuration:
-          environmentVariables: # Sets of environment variables for steplets
+          environmentVariables:
             mineral: copper
             abc: carrot
             def: iron
