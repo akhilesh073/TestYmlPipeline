@@ -116,7 +116,7 @@ pipelines:
         execution:
           onExecute:
             - printenv
-      - name: simpleBash4
+      - name: simpleBash44
         type: Bash
         configuration:
           inputSteps:
@@ -130,7 +130,7 @@ pipelines:
           onExecute:
             - printenv
             - echo "${res_versionbag_version}"
-      - name: simpleBash_abc
+      - name: simpleBash_abc22
         type: Bash
         configuration:
           inputSteps:
