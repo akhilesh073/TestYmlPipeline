@@ -53,7 +53,7 @@ pipelines:
           inputResources:
             - name: R2
           outputResources:
-            - name: R3
+            - name: R4
         execution:
           onExecute:
             - printenv
@@ -62,8 +62,6 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: R3
-          outputResources:
             - name: R4
         execution:
           onExecute:
