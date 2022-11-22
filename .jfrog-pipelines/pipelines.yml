@@ -1,5 +1,5 @@
 resources:
-- name: R
+  - name: R
     type: PropertyBag
     configuration:
       version: '1.0.0'
