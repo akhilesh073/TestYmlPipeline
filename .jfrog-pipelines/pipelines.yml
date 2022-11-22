@@ -1,4 +1,8 @@
 resources:
+- name: R
+    type: PropertyBag
+    configuration:
+      version: '1.0.0'
   - name: R0
     type: PropertyBag
     configuration:
@@ -19,8 +23,12 @@ resources:
     type: PropertyBag
     configuration:
       version: '1.0.0'
+  - name: R5
+    type: PropertyBag
+    configuration:
+      version: '1.0.0'
 pipelines:
-  - name: runTriggerWithResource
+  - name: runTriggerWithResourceWithparallel
     steps:
       - name: A
         type: Bash
@@ -40,9 +48,6 @@ pipelines:
             - name: R1
           outputResources:
             - name: R2
-            - name: R3
-          inputSteps:
-            - name: A
         execution:
           onExecute:
             - printenv
@@ -53,7 +58,7 @@ pipelines:
           inputResources:
             - name: R2
           outputResources:
-            - name: R4
+            - name: R5
         execution:
           onExecute:
             - printenv
@@ -62,7 +67,9 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: R4
+            - name: R
+          outputResources:
+            - name: R3
         execution:
           onExecute:
             - printenv
@@ -72,7 +79,19 @@ pipelines:
         configuration:
           inputResources:
             - name: R3
+          outputResources:
+            - name: R4
         execution:
           onExecute:
             - printenv
             - echo "Step E"
+      - name: F
+        type: Bash
+        configuration:
+          inputResources:
+            - name: R5
+            - name: R4
+        execution:
+          onExecute:
+            - printenv
+            - echo "Step F"
