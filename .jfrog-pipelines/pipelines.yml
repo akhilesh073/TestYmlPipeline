@@ -1,21 +1,5 @@
-resources:
-  - name: versionbag11
-    type: PropertyBag
-    configuration:
-      version: '1.0.0'
-
-  - name: branchbag11
-    type: PropertyBag
-    configuration:
-      branch_name: ''
-
-  - name: pipelineVBag11
-    type: PropertyBag
-    configuration:
-      pipeline_v: ''
-
 pipelines:
-  - name: simplePipelines2
+  - name: singleStep
     configuration:
       environmentVariables:
         readOnly:
@@ -29,50 +13,12 @@ pipelines:
               - value3
             allowCustom: true
     steps:
-      - name: simpleBash1
+      - name: singleStepBash1
         type: Bash
         configuration:
           environmentVariables:
             env3: value3
             env4: value4
-          outputResources:
-            - name: versionbag11
-        execution:
-          onExecute:
-            - printenv
-            #             - sleep 3m
-            - echo "aaa bbb ccc"
-            - write_output versionbag11 "version=$run_id"
-      - name: simpleBash_abc
-        type: Bash
-        configuration:
-          inputResources:
-            - name: pipelineVBag11
-          outputResources:
-            - name: branchbag11
-        execution:
-          onExecute:
-            - printenv
-            - write_output branchbag11 "branch_name=$run_id"
-      - name: simpleBash2
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash_abc
-          inputResources:
-            - name: versionbag11
-            - name: pipelineVBag11
-        execution:
-          onExecute:
-            - printenv
-      - name: simpleBash4
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash2
-          inputResources:
-            - name: branchbag11
         execution:
           onExecute:
             - printenv
