@@ -30,7 +30,7 @@ pipelines:
           priority: 0
         execution:
           onExecute:
-            - printenv
+            - printenv aaa
             - aaa
             - echo "done"
       - name: trigger_2
