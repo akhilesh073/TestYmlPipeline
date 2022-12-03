@@ -32,7 +32,7 @@ resources:
       pipeline_v: ''
 
 pipelines:
-  - name: simplePipelines1
+  - name: simplePipelinesAk
     steps:
       - name: simpleBash1
         type: Bash
