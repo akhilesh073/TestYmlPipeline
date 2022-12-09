@@ -3,6 +3,10 @@ pipelines:
     steps:
       - name: singleStepBash1
         type: Bash
+        configuration:
+          requiresApproval:
+            approvers:
+              - admin
         execution:
           onExecute:
             - echo "Hiii"
