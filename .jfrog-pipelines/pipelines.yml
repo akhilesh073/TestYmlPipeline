@@ -36,6 +36,9 @@ pipelines:
       - name: B
         type: Bash
         configuration:
+          requiresApproval:
+            approvers:
+              - admin
           inputResources:
             - name: R1
           outputResources:
