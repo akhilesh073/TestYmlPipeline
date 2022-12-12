@@ -1,5 +1,5 @@
 pipelines:
-  - name: singleStep
+  - name: a_pipeline_with_long_long_name_and_still_long_name
     steps:
       - name: singleStepBash1
         type: Bash
