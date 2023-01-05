@@ -30,6 +30,7 @@ pipelines:
           priority: 0
         execution:
           onExecute:
+            - sleep 20m
             - set_run_name "akhilesh"
             - update_run_description "description1"
             - printenv
