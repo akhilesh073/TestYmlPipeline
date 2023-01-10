@@ -8,11 +8,6 @@ pipelines:
         configuration:
           environmentVariables:
             BRANCH_NAME: ''
-          integrations:
-            - name: entArt
-          inputResources:
-            - name: promotion
-              trigger: false
         execution:
           onStart:
             - >-
