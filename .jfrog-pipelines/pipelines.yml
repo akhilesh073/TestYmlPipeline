@@ -1,141 +1,25 @@
-resources:
-  - name: propertyC
-    type: PropertyBag
-    configuration:
-      key1: value1
-      key2: value2
-      pipelines: 'user_in'
-  - name: propertyC2
-    type: PropertyBag
-    configuration:
-      key1: value1
-      key2: value2
-pipelines:
-  - name: single_test_sorting
+name: jfdev_repo_creation_sample
+configuration:
+  chronological: true
+steps:
+  - name: create_repos
+    type: Bash
     configuration:
       environmentVariables:
-        readOnly:
-          pipevar1: 1
-          pipevar2: 2
-    steps:
-      - name: trigger_1_with_a_long_long_name_try_this
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - sleep 20m
-            - set_run_name "akhilesh"
-            - update_run_description "description1"
-            - printenv
-            - echo "done"
-            - sleep 10
-      - name: trigger_2_and_with_a_long_long_name_try_this
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_1_with_a_long_long_name_try_this
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - update_run_description "description2"
-            - printenv
-            - echo "done"
-            - sleep 15
-      - name: trigger_3
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_2_and_with_a_long_long_name_try_this
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
-      - name: trigger_4
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_3
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 25
-      - name: trigger_5
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_4
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 25
-      - name: trigger_6
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_5
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
-      - name: trigger_7
-        type: Bash
-        configuration:
-          affinityGroup: trigger
-          inputSteps:
-            - name: trigger_6
-          environmentVariables:
-            env1: 1
-            env2:
-              default: 2
-              description: someDescription
-          priority: 0
-        execution:
-          onExecute:
-            - printenv
-            - echo "done"
-            - sleep 20
+        BRANCH_NAME: ''
+      integrations:
+        - name: entArt
+      inputResources:
+        - name: promotion
+          trigger: false
+    execution:
+      onStart:
+        - >-
+          if [ -z "$BRANCH_NAME" ]; then echo "pass in a branch name"; exit 1;
+          fi
+        - >-
+          export BRANCH_LOWERCASE_NAME=$(echo ${BRANCH_NAME} | tr A-Z a-z | tr
+          "/" "-")
+        - echo $BRANCH_LOWERCASE_NAME
+      onExecute:
+        - printenv
