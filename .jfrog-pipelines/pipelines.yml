@@ -8,9 +8,7 @@ pipelines:
         configuration:
           requiresApproval:
             approvers:
-              - ankushc
-          environmentVariables:
-            BRANCH_NAME: ''
+              - testUser
         execution:
           onStart:
             - >-
