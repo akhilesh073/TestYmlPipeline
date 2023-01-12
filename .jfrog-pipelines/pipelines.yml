@@ -3,7 +3,7 @@ pipelines:
     configuration:
       chronological: true
     steps:
-      - name: create_repos
+      - name: approval_gate_creation
         type: Bash
         configuration:
           requiresApproval:
