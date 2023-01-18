@@ -1,100 +1,23 @@
 resources:
-  # - name: same_gitRepo1
-  #   type: GitRepo
-  #   configuration:
-  #     gitProvider: testInt
-  #     path: akhilesh073/TestYmlPipeline
-  #     branches:
-  #       include: master
-
-  # - name: gitRepo_githubhttps
-  #   type: GitRepo
-  #   configuration:
-  #     gitProvider: testInt
-  #     path: akhilesh073/LocalTemplatePipeline
-  #     cloneProtocol: https
-  #     branches:
-  #       include: main
-
-  - name: versionbag
-    type: PropertyBag
+  - name: akhilesh073_gitRepo
+    type: GitRepo
     configuration:
-      version: '1.0.0'
-
-  - name: branchbag
-    type: PropertyBag
-    configuration:
-      branch_name: ''
-
-  - name: pipelineVBag
-    type: PropertyBag
-    configuration:
-      pipeline_v: ''
-  - name: pipelineVBag1
-    type: PropertyBag
-    configuration:
-      pipeline_v: ''
+      gitProvider: testInt
+      path: akhilesh073/TestYmlPipeline
+      branches:
+        include: testResourceToUploadStep
 
 pipelines:
-  - name: simplePipelines1
+  - name: simplePipelines_to_upload_step
     steps:
-      - name: simpleBash
+      - name: Normal_Step
         type: Bash
         configuration:
           inputResources:
-            - name: pipelineVBag1
+            - name: akhilesh073_gitRepo
         execution:
           onExecute:
-            - printenv
-            #             - sleep 3m
-            - echo "aaa bbb ccc"
-            - write_output versionbag "version=$run_id"
-      - name: simpleBash1
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash
-          outputResources:
-            - name: versionbag
-        execution:
-          onExecute:
-            - printenv
-            #             - sleep 3m
-            - echo "aaa bbb ccc"
-            - write_output versionbag "version=$run_id"
-      - name: simpleBash_abc
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash
-          inputResources:
-            - name: pipelineVBag
-          outputResources:
-            - name: branchbag
-        execution:
-          onExecute:
-            - printenv
-            - write_output branchbag "branch_name=$run_id"
-      - name: simpleBash2
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash_abc
-          inputResources:
-            - name: versionbag
-            - name: pipelineVBag
-        execution:
-          onExecute:
-            - printenv
-      - name: simpleBash4
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash2
-          inputResources:
-            - name: branchbag
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
+            - pushd "$res_self_repo_resourcePath/"
+            - save_tests saveTests/failing
+            - echo "Passed"
+            - popd
