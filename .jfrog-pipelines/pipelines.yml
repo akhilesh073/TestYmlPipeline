@@ -5,7 +5,7 @@ resources:
       gitProvider: testInt
       path: akhilesh073/TestYmlPipeline
       branches:
-        include: testResourceToUploadStep
+        include: testResource
 
 pipelines:
   - name: simplePipelines_to_upload_step
