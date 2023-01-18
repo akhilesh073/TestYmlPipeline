@@ -1,5 +1,5 @@
 resources:
-  - name: akhilesh073_gitRepo
+  - name: self_repo
     type: GitRepo
     configuration:
       gitProvider: testInt
@@ -14,7 +14,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: akhilesh073_gitRepo
+            - name: self_repo
         execution:
           onExecute:
             - pushd "$res_self_repo_resourcePath/"
