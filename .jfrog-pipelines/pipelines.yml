@@ -15,7 +15,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            BRANCH_NAME: ''
+            BRANCH_NAME: 'abc'
           integrations:
             - name: entArt
           inputResources:
