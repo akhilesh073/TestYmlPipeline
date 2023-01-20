@@ -10,21 +10,21 @@ pipelines:
   - name: jfdev_repo_creation_sample_env_var
     configuration:
       chronological: true
-      steps:
-        - name: create_repos
-          type: Bash
-          configuration:
-            environmentVariables:
-              BRANCH_NAME: ''
-            integrations:
-              - name: entArt
-            inputResources:
-              - name: promotion
-                trigger: false
-          execution:
-            onStart:
-              - if [ -z "$BRANCH_NAME" ]; then echo "pass in a branch name"; exit 1; fi
-              - export BRANCH_LOWERCASE_NAME=$(echo ${BRANCH_NAME} | tr A-Z a-z | tr "/" "-")
-              - echo $BRANCH_LOWERCASE_NAME
-            onExecute:
-              - pushd $res_promotion_resourcePath/repoTemplates
+    steps:
+      - name: create_repos
+        type: Bash
+        configuration:
+          environmentVariables:
+            BRANCH_NAME: ''
+          integrations:
+            - name: entArt
+          inputResources:
+            - name: promotion
+              trigger: false
+        execution:
+          onStart:
+            - if [ -z "$BRANCH_NAME" ]; then echo "pass in a branch name"; exit 1; fi
+            - export BRANCH_LOWERCASE_NAME=$(echo ${BRANCH_NAME} | tr A-Z a-z | tr "/" "-")
+            - echo $BRANCH_LOWERCASE_NAME
+          onExecute:
+            - pushd $res_promotion_resourcePath/repoTemplates
