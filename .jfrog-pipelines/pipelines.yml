@@ -7,7 +7,17 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            BRANCH_NAME: ''
+            BRANCH_NAME: 'BRANCH_NAME'
+            Pipeline_name: 'Pipeline_name'
+            Field_1: 'Field_1'
+            Field_2: 'Field_2'
+            Field_3: 'Field_3'
+            Field_4: 'Field_4'
+            Field_5: 'Field_5'
+            Field_6: 'Field_6'
+            Field_7: 'Field_7'
+            Field_8: 'Field_8'
+            Field_9: 'Field_9'
         execution:
           onStart:
             - >-
