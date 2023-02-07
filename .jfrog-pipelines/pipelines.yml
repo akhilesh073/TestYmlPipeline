@@ -8,7 +8,7 @@ resources:
         include: ^tests$
 
 pipelines:
-  - name: 1234-very-long-name-very-long-name-very-long-name-very-long-name-very-long-name-very-long-name-very-long-name-very-long
+  - name: very-long-long-long-name-name-long-name
     steps:
       - name: Normal_Step
         type: Bash
