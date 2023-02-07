@@ -8,7 +8,7 @@ pipelines:
         configuration:
           requiresApproval:
             approvers:
-              - testUser
+              - testuser
         execution:
           onStart:
             - >-
