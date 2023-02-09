@@ -49,7 +49,7 @@ pipelines:
           priority: 0
         execution:
           onExecute:
-            - update_run_description "description2"
+            - update_run_description "description2 with long name and long description to see the UI"
             - printenv
             - echo "done"
             - sleep 15
