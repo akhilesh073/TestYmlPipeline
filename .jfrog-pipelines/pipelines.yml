@@ -382,11 +382,11 @@ pipelines:
           onExecute:
             - printenv
             - echo "${res_versionbag_version}"
-      - name: simpleBash3
+      - name: simpleBash311
         type: Bash
         configuration:
           inputSteps:
-            - name: simpleBash2
+            - name: step519
           inputResources:
             - name: versionbag
             - name: same_gitRepo_with_big_name_and_bigger_space
@@ -400,7 +400,7 @@ pipelines:
         type: Bash
         configuration:
           inputSteps:
-            - name: simpleBash3
+            - name: simpleBash311
           inputResources:
             - name: versionbag
             - name: same_gitRepo_with_big_name_and_bigger_space
