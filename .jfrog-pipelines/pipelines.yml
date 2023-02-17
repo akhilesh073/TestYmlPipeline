@@ -14,7 +14,7 @@ resources:
       path: akhilesh073/jfrog-pipelines-matrix-example
       cloneProtocol: https
       branches:
-        include: main
+        include: master
 
   - name: versionbag
     type: PropertyBag
