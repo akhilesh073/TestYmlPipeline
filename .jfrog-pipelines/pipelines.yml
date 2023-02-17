@@ -1,13 +1,13 @@
 resources:
-  - name: same_gitRepo1
+  - name: same_gitRepo_with_big_name_and_bigger_space
     type: GitRepo
     configuration:
       gitProvider: testInt
       path: akhilesh073/TestYmlPipeline
       branches:
-        include: master
+        include: withEnvVariables
 
-  - name: gitRepo_githubhttps
+  - name: gitRepo_githubhttps_With_gitRepo_githubhttps_With_gitRepo_githubhttps_With_gitRepo_githubhttps
     type: GitRepo
     configuration:
       gitProvider: testInt
@@ -67,8 +67,8 @@ pipelines:
             s1v12: broccoli
           #           timeoutSeconds: 60
           inputResources:
-            - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: same_gitRepo_with_big_name_and_bigger_space
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
           outputResources:
             - name: versionbag
             - name: branchbag
@@ -111,8 +111,8 @@ pipelines:
           inputSteps:
             - name: simpleBash1
           inputResources:
-            - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: same_gitRepo_with_big_name_and_bigger_space
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -124,7 +124,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -137,7 +137,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -149,7 +149,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -163,7 +163,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -175,7 +175,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -188,7 +188,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -200,7 +200,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -213,7 +213,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -225,7 +225,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -238,7 +238,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -250,7 +250,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -263,7 +263,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -275,7 +275,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -289,7 +289,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -301,7 +301,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -314,7 +314,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -326,7 +326,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -339,7 +339,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -351,7 +351,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
@@ -364,7 +364,7 @@ pipelines:
             - name: simpleBash1
           inputResources:
             - name: same_gitRepo1
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
         execution:
           onExecute:
             - printenv
@@ -376,7 +376,7 @@ pipelines:
             - name: simpleBash2
           inputResources:
             - name: versionbag
-            - name: gitRepo_githubhttps
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps
             - name: same_gitRepo1
         execution:
           onExecute:
