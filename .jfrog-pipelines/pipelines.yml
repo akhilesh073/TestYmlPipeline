@@ -113,18 +113,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
       - name: simpleBash311
         type: Bash
         configuration:
