@@ -382,3 +382,31 @@ pipelines:
           onExecute:
             - printenv
             - echo "${res_versionbag_version}"
+      - name: simpleBash3
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash2
+          inputResources:
+            - name: versionbag
+            - name: same_gitRepo_with_big_name_and_bigger_space
+          outputResources:
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
+      - name: simpleBash4
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simpleBash3
+          inputResources:
+            - name: versionbag
+            - name: same_gitRepo_with_big_name_and_bigger_space
+          outputResources:
+            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
+        execution:
+          onExecute:
+            - printenv
+            - echo "${res_versionbag_version}"
