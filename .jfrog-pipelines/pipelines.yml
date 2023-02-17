@@ -11,7 +11,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: testInt
-      path: akhilesh073/xray-pipelines-repo
+      path: akhilesh073/jfrog-pipelines-matrix-example
       cloneProtocol: https
       branches:
         include: main
