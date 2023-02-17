@@ -67,7 +67,6 @@ pipelines:
             s1v12: broccoli
           #           timeoutSeconds: 60
           inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
             - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
           outputResources:
             - name: versionbag
@@ -81,7 +80,6 @@ pipelines:
             - write_output versionbag "version=$run_id"
             - write_output branchbag "branch_name=$run_id"
             - write_output pipelineVBag "pipeline_v=$run_id"
-
       - name: simpleBash2
         type: Bash
         configuration:
@@ -111,12 +109,10 @@ pipelines:
           inputSteps:
             - name: simpleBash1
           inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
             - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
         execution:
           onExecute:
             - printenv
-      - name: simpleBash44
         type: Bash
         configuration:
           inputSteps:
@@ -125,259 +121,6 @@ pipelines:
           inputResources:
             - name: versionbag
             - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: simpleBash_abc22
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: simpleBash41
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-
-      - name: simpleBash_abc12
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: simpleBash41231
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step5
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step6
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step7
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step8
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step9
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step10
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step11
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step512
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-
-      - name: step513
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step514
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step515
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step516
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step517
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step518
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
-        execution:
-          onExecute:
-            - printenv
-            - echo "${res_versionbag_version}"
-      - name: step519
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-          inputResources:
-            - name: same_gitRepo_with_big_name_and_bigger_space
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-        execution:
-          onExecute:
-            - printenv
-      - name: step520
-        type: Bash
-        configuration:
-          inputSteps:
-            - name: simpleBash1
-            - name: simpleBash2
-          inputResources:
-            - name: versionbag
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
-            - name: same_gitRepo_with_big_name_and_bigger_space
         execution:
           onExecute:
             - printenv
@@ -386,12 +129,12 @@ pipelines:
         type: Bash
         configuration:
           inputSteps:
-            - name: step519
+            - name: simpleBash_abc
           inputResources:
             - name: versionbag
-            - name: same_gitRepo_with_big_name_and_bigger_space
-          outputResources:
             - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
+          outputResources:
+            - name: same_gitRepo_with_big_name_and_bigger_space
         execution:
           onExecute:
             - printenv
@@ -403,9 +146,8 @@ pipelines:
             - name: simpleBash311
           inputResources:
             - name: versionbag
-            - name: same_gitRepo_with_big_name_and_bigger_space
           outputResources:
-            - name: gitRepo_githubhttps_With_gitRepo_githubhttps_repo
+            - name: same_gitRepo_with_big_name_and_bigger_space
         execution:
           onExecute:
             - printenv
