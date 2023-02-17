@@ -7,7 +7,7 @@ resources:
       branches:
         include: withEnvVariables
 
-  - name: gitRepo_githubhttps_With_gitRepo_githubhttps_With_gitRepo_githubhttps_With_gitRepo_githubhttps
+  - name: gitRepo_githubhttps_With_gitRepo_githubhttps
     type: GitRepo
     configuration:
       gitProvider: testInt
